@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <!-- css link -->
+     <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="reg" style="text-align: center;">
+        <form id="form">
+
+            <h2>Registration Form</h2>
+            <!-- name -->
+            <label>Name </label>
+            <input type="text" id="name" placeholder="Your Name">
+            <div id="nameError" class="error"></div>
+            <br><br>
+
+            <!-- Email -->
+            <label>Email </label>
+            <input type="email" id="email" placeholder="youremail@gmail.com">
+            <div id="emailError" class="error"></div>
+            <br><br>
+
+            <!-- Password -->
+            <label>Password </label>
+            <input type="password" id="pass" placeholder="Enter your password (6 characters max)">
+            <div id="passError" class="error"></div>
+            <br><br>
+
+            <!-- button -->
+            <button type="submit" id="btn" disabled>Submit</button>
+
+        </form>
+    </div>
+
+    <script>
+        // Selecting input 
+        var nameInput = document.getElementById("name");
+        var emailInput = document.getElementById("email");
+        var passInput = document.getElementById("pass");
+        var btn = document.getElementById("btn");
+
+        // Selecting input error
+        var nameError = document.getElementById("nameError");
+        var emailError = document.getElementById("emailError");
+        var passError = document.getElementById("passError");
+
+        // Email pattern 
+        var emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+        // function
+        function validate() {
+
+            // button disabled / enabled
+
+            if (nameInput.value.trim() !== "" &&
+                emailInput.value.match(emailPattern) &&
+                passInput.value.length >= 6) {
+
+                btn.disabled = false;
+            }
+            else {
+                btn.disabled = true;
+            }
+
+        }
+
+        // Name Validation
+        nameInput.addEventListener("blur", function () {
+            if (nameInput.value.trim() === "") {
+                nameError.textContent = "Name is required";
+            }
+            else {
+                nameError.textContent = "";
+            }
+            validate();
+        });
+
+        // Email Validation 
+        emailInput.addEventListener("blur", function () {
+            if (!emailInput.value.match(emailPattern)) {
+                emailError.textContent = "Enter the valid Email id"
+            }
+            else {
+                emailError.textContent = "";
+            }
+            validate();
+        });
+
+        // Password Validation 
+        passInput.addEventListener("blur", function () {
+            if (passInput.value.length < 6) {
+                passError.textContent = "Password must be atleast 6 characters!"
+
+            }
+            else {
+                emailError.textContent = "";
+                passError.style.display = "none";
+            }
+            validate();
+        });
+
+        passInput.addEventListener("input", function () {
+            if (passInput.value.length < 6) {
+                passError.style.display = "block";
+            }
+            else {
+                passError.style.display = "none";
+            }
+            validate();
+        })
+
+        // alert msg after submission
+        var form = document.getElementById("form")
+
+        form.addEventListener("submit", function () {
+            alert("Submitted Successfully");
+        });
+
+    </script>
+
+
+</body>
+
+</html>
